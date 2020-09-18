@@ -126,6 +126,10 @@ WaitForEvent:
 		case <-ctx.Done():
 			return nil
 		case event := <-configWatcher.Events:
+			if event.Op == fsnotify.Chmod {
+				continue
+			}
+			
 			log.Printf("Event: %+v \n", event)
 			touchedInfo, err := os.Stat(event.Name)
 			if err != nil {
