@@ -126,7 +126,7 @@ WaitForEvent:
 		case <-ctx.Done():
 			return nil
 		case event := <-configWatcher.Events:
-			if event.Op == fsnotify.Chmod {
+			if event.Op&fsnotify.Chmod == fsnotify.Chmod {
 				continue
 			}
 			
